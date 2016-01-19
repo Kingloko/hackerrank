@@ -28,21 +28,23 @@ public class Solution {
   }
 
   public static boolean solve(int[] arr, boolean[] visited, int curr, int jump, int size)  {
+    boolean jumper,plus,minus;
+    jumper=plus=minus=false;
     if (curr >= size) {
       return true;
     } else {
       visited[curr] = true;
       if (validJump(arr, visited, curr + jump, size)) {
-        return solve(arr, visited, curr + jump, jump, size);
+        jumper = solve(arr, visited, curr + jump, jump, size);
       }
       if (validJump(arr, visited, curr + 1, size)) {
-        return solve(arr, visited, curr + 1, jump, size);
+        plus = solve(arr, visited, curr + 1, jump, size);
       }
       if (validJump(arr, visited, curr - 1, size)) {
-        return solve(arr, visited, curr - 1, jump, size);
+        minus = solve(arr, visited, curr - 1, jump, size);
       }
     }
-    return false;
+    return ((jumper||plus)||minus);
   }
 
   public static boolean validJump(int[] arr, boolean[] visited, int index, int size) {
